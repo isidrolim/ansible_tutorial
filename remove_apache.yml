@@ -1,0 +1,19 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+    - name: install apache2 packages to all servers
+      apt: 
+        name: apache2
+        state: absent
+    
+    - name: update repo index
+      apt:
+        update_cache: yes
+
+    - name: add php support for apache2
+      apt:
+        name: libapache2-mod-php
+        state: absent
