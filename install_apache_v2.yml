@@ -4,36 +4,10 @@
   become: true
   tasks:
 
-  - name: install apache2 packages to all servers
-    apt: 
-      name: apache2
+  - name: install apache and php packages to all servers
+    package: 
+      name: 
+        - "{{ apache_package }}"
+        - "{{ php_package }}"
       state: latest
-    when: ansible_distribution == "Ubuntu"
-    
-  - name: update repo index
-    apt:
       update_cache: yes
-    when: ansible_distribution == "Ubuntu"
-
-  - name: add php support for apache2
-    apt:
-      name: libapache2-mod-php
-      state: latest
-    when: ansible_distribution == "Ubuntu"
-      
-  - name: install httpd packages to all servers
-    dnf: 
-      name: httpd
-      state: latest
-    when: ansible_distribution == "CentOS"
-    
-  - name: update repo index
-    dnf:
-      update_cache: yes
-    when: ansible_distribution == "CentOS"
-
-  - name: add php support for httpd
-    dnf:
-      name: php
-      state: latest
-    when: ansible_distribution == "CentOS"
